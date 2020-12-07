@@ -1,0 +1,12 @@
+{
+  "name": "@auth0/devpro-exercise-scaffold",
+  "version": "1.0.0",
+  "description": "Starter project for candidate exercise",
+  "main": "index.js",
+  "author": "Auth0",
+  "license": "UNLICENSED",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
