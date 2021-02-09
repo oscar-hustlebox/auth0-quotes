@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "@auth0/devpro-exercise-scaffold-spa",
   "version": "0.1.0",
-  "private": true,
+  "license": "UNLICENSED",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -17,11 +17,14 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "dev:all": "run-p dev:service start",
+    "dev:service": "cd ../service && yarn dev",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:3002",
   "eslintConfig": {
     "extends": [
       "react-app",

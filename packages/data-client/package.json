@@ -1,0 +1,34 @@
+{
+  "name": "@auth0/devpro-exercise-scaffold-data",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Auth0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "ts-node-dev -r dotenv/config ./ dotenv_config_path=../../.env",
+    "dev:wlint": "run-p dev lint:watch",
+    "lint": "eslint ./src",
+    "build": "rm -rf ./dist && tsc",
+    "lint:watch": "esw src --ext .ts,.js -w --color",
+    "import-quotes": "ts-node-dev -r dotenv/config ./src/import-public-quotes dotenv_config_path=../../.env",
+    "typesync": "typesync"
+  },
+  "dependencies": {
+    "pg": "^8.4.0",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.30"
+  },
+  "devDependencies": {
+    "@types/eslint": "7.2.6",
+    "@types/node": "^8.0.29",
+    "@types/pg": "^7.14.9",
+    "eslint": "7.15.0",
+    "eslint-watch": "^7.0.0"
+  },
+  "types": "./dist/index.d.ts",
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  }
+}
