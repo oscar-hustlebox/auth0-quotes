@@ -119,7 +119,7 @@ Create a new quote
 
 #### Body format
 
-```json
+```js
  {
    "authorName": <string>,
    "text": <string>,
@@ -146,7 +146,3 @@ Cannot use JSX unless the '--jsx' flag is provided.
 ```
 
 Update your workspace to use the local version of TypeScript (Cmd+P -> Type "> TypeScript: Select TypeScript version" -> Select "Use Workspace Version")
-
-```
-
-```
