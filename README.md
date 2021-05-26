@@ -137,6 +137,8 @@ Delete quote by id
 
 ## Troubleshooting
 
+### VS Code use of JSX
+
 If you see TS errors or warnings in VS Code such as:
 
 ```
@@ -146,3 +148,24 @@ Cannot use JSX unless the '--jsx' flag is provided.
 ```
 
 Update your workspace to use the local version of TypeScript (Cmd+P -> Type "> TypeScript: Select TypeScript version" -> Select "Use Workspace Version")
+
+### Port in use by ts-node-dev 
+
+If after closing a dev server and trying to run a new one you see this error:
+
+```
+EADDRINUSE: address already in use
+```
+
+Try closing the server manually on signal: 
+
+```
+  ['exit', 'SIGINT', 'uncaughtException', 'SIGTERM'].forEach((eventType) => {
+    process.on(eventType as any, () => {
+      server.close();
+    });
+  });
+```
+
+For more information see the issue on Github:
+https://github.com/wclr/ts-node-dev/issues/120
