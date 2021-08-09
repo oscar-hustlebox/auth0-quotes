@@ -52,11 +52,11 @@ You are not restricted to the technologies or configurations provided in this st
 
 The idea is to iterate, so you can get a sense of the way we work and we can understand how you work, based on a real task.
 
-We value your time and ask that you dedicate no more than 10-15 hours to this exercise and submit all work within 7 days. If you believe it will take you longer, please let us know and we will adjust. All commits can be pushed to this repository and any supporting documentation, designs, etc. can shared in the Slack channel. We will schedule a demo call after the exercise where you can present and discuss the project with us.
+We value your time and ask that you dedicate no more than 10-15 hours to this exercise and submit all work within 7 days. If you believe it will take you longer, please let us know and we will adjust. All commits can be pushed to this repository and any supporting documentation, designs, etc. can be shared in the Slack channel. We will schedule a demo call after the exercise where you can present and discuss the project with us.
 
 Feel free to integrate any frameworks or libraries that align with your preferred workflow and design philosophy (UI, state management, routing, testing, etc.), including any offered by Auth0 for authorization needs.
 
-Under no circumstances we will use the code you create during the exercise.​ Feel free to put restrictive licenses on your repo if you are concerned and would like to take extra measures. We value transparency and want to be very upfront that the exercise is not an attempt to get free work done.
+Under no circumstances will we use the code you create during the exercise.​ Feel free to put restrictive licenses on your repo if you are concerned and would like to take extra measures. We value transparency and want to be very upfront that the exercise is not an attempt to get free work done.
 
 ## Resources
 
