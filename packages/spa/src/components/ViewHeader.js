@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ViewHeader = ({ title }) => (
-  <div className='flex items-center justify-center w-full'>
-    <h1 className='m-0 text-lg text-center'>{title}</h1>
+  <div className='flex w-full mb-6'>
+    <h1 className='m-0 text-lg'>{title}</h1>
   </div>
 );
 
