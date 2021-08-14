@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-export const App: React.FC = () => {
-  const [apiResponse, setApiResponse] = useState({} as any);
+const App: React.FC = () => {
+  const [apiResponse, setApiResponse] = useState<any>({});
   useEffect(() => {
     fetch('/api/public-quotes/1')
       .then((response) => response.json())
@@ -16,3 +16,5 @@ export const App: React.FC = () => {
     </>
   );
 };
+
+export default App;

@@ -1,0 +1,68 @@
+{
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb-base"
+  ],
+  "plugins": [
+    "jsx-a11y"
+  ],
+  "env": {
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "globals": {
+    "localStorage": true,
+    "fetch": true,
+    "process": true,
+    "document": false,
+    "window": false
+  },
+  "rules": {
+    "react/prop-types": [
+      1,
+      {
+        "ignore": [
+          "children"
+        ]
+      }
+    ],
+    "comma-dangle": 0,
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ],
+    "prefer-destructuring": 0,
+    "no-console": 1,
+    "import/no-extraneous-dependencies": 0,
+    "no-unused-vars": [
+      1,
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "function-paren-newline": 0,
+    "no-await-in-loop": 0,
+    "arrow-body-style": 0,
+    "object-curly-newline": 0,
+    "import/extensions": "off",
+    "import/prefer-default-export": "off"
+  }
+}
