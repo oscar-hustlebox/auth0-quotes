@@ -5,6 +5,7 @@ import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
 
 import SiteNav from './components/SiteNav';
+import ViewLayout from './components/ViewLayout';
 import PublicQuotes from './components/PublicQuotes';
 import User from './components/User';
 
@@ -33,10 +34,12 @@ const App = () => {
     >
       <Router history={history}>
         <SiteNav />
-        <Switch>
-          <Route path='/' exact component={PublicQuotes} />
-          <ProtectedRoute path='/user' component={User} />
-        </Switch>
+        <ViewLayout>
+          <Switch>
+            <Route path='/' exact component={PublicQuotes} />
+            <ProtectedRoute path='/user' component={User} />
+          </Switch>
+        </ViewLayout>
       </Router>
     </Auth0Provider>
   );

@@ -1,8 +1,11 @@
 import React from 'react';
+import ViewHeader from './ViewHeader';
 
 const PublicQuotes = () => {
   return (
-    <div>Public Quotes</div>
+    <React.Fragment>
+      <ViewHeader title='Public Quotes' />
+    </React.Fragment>
   );
 };
 
