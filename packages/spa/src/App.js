@@ -5,9 +5,11 @@ import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { createBrowserHistory } from 'history';
 
 import SiteNav from './components/SiteNav';
-import ViewLayout from './components/ViewLayout';
-import PublicQuotes from './components/PublicQuotes';
-import User from './components/User';
+import PublicQuotes from './components/quotes/PublicQuotes';
+import CreateQuote from './components/quotes/CreateQuote';
+import EditQuote from './components/quotes/EditQuote';
+import QuoteDetails from './components/quotes/QuoteDetails';
+import UserQuotes from './components/quotes/UserQuotes';
 
 export const history = createBrowserHistory();
 
@@ -34,12 +36,22 @@ const App = () => {
     >
       <Router history={history}>
         <SiteNav />
-        <ViewLayout>
-          <Switch>
-            <Route path='/' exact component={PublicQuotes} />
-            <ProtectedRoute path='/user' component={User} />
-          </Switch>
-        </ViewLayout>
+        <Switch>
+          <Route path='/' exact component={PublicQuotes} />
+          <ProtectedRoute path='/user' component={UserQuotes} />
+          <ProtectedRoute path='/quote/create' exact component={CreateQuote} />
+          <Route path='/quote/:pathname/:quoteId' exact component={QuoteDetails} />
+          <ProtectedRoute
+            path={`/quote/:pathname/:quoteId/edit`}
+            exact
+            component={({ match }) => (
+              <EditQuote
+                quoteId={match.params.quoteId}
+                redirectTo={`/user`}
+              />
+            )}
+            />
+        </Switch>
       </Router>
     </Auth0Provider>
   );

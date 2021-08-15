@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 
-export const useApi = (url, options = {}) => {
-  const { getAccessTokenSilently } = useAuth0();
+export const usePublicQuotesApi = (url, options = {}) => {
   const [state, setState] = useState({
     error: null,
     loading: true,
@@ -17,20 +15,17 @@ export const useApi = (url, options = {}) => {
     (async () => {
       try {
         const { audience, scope, ...fetchOptions } = options;
-        const accessToken = await getAccessTokenSilently({ audience, scope });
 
         const results = await axios.get(url, {
           headers: {
-            ...fetchOptions.headers,
-            // Add the Authorization header to the existing headers
-            Authorization: `Bearer ${accessToken}`,
+            ...fetchOptions.headers
           },
           cancelToken: source.token
         });
 
         setState({
           ...state,
-          data: results?.data?.results ?? results?.data,
+          data: results?.data?.results,
           error: null,
           loading: false,
         });
@@ -46,7 +41,7 @@ export const useApi = (url, options = {}) => {
     return () => {
       source.cancel();
     };
-  }, [refreshIndex]);
+  }, []);
 
   return {
     ...state,

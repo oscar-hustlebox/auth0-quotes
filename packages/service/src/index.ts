@@ -26,8 +26,10 @@ import { publicQuotesRouter, userQuotesRouter } from './routes';
     res.send({ body: 'Hello from API!' });
   });
 
+
   app.use('/api/user-quotes', userQuotesRouter);
   app.use('/api/public-quotes', publicQuotesRouter);
+
 
   app.listen(port, () => {
     console.log(`Service listening at http://localhost:${port}`);

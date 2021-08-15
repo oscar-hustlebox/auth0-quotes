@@ -1,10 +1,35 @@
 import express from 'express';
 import { getConnection, UserQuote } from '@auth0/devpro-exercise-scaffold-data';
 
+import jwt from 'express-jwt';
+import jwks from 'jwks-rsa';
+
 const router = express.Router();
 
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+    jwt({
+      secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://dev-v5k0yq0h.us.auth0.com/.well-known/jwks.json'
+      }),
+      audience: 'https://quotesapp.com/api',
+      issuer: 'https://dev-v5k0yq0h.us.auth0.com/',
+      algorithms: ['RS256']
+    });
+
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 router
-  .get('/', async (req, res) => {
+  .get('/', authenticateJWT, async (req, res) => {
     const connection = await getConnection();
     const quoteRepository = connection.getRepository(UserQuote);
     const { userId } = req.query;
@@ -17,7 +42,7 @@ router
 
     await connection.close();
   })
-  .post('/', async (req, res) => {
+  .post('/', authenticateJWT, async (req, res) => {
     const connection = await getConnection();
     const quoteRepository = connection.getRepository(UserQuote);
     const { text, userId, authorName } = req.body;
@@ -40,7 +65,7 @@ router
 
     await connection.close();
   })
-  .patch('/:id', async (req, res) => {
+  .patch('/:id', authenticateJWT, async (req, res) => {
     const connection = await getConnection();
     const quoteRepository = connection.getRepository(UserQuote);
     const { id } = req.params;
@@ -54,7 +79,7 @@ router
 
     await connection.close();
   })
-  .delete('/:id', async (req, res) => {
+  .delete('/:id', authenticateJWT, async (req, res) => {
     const connection = await getConnection();
     const quoteRepository = connection.getRepository(UserQuote);
     const { id } = req.params;
