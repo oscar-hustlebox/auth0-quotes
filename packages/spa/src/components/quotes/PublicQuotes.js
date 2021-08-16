@@ -8,6 +8,7 @@ import { usePublicQuotesApi } from '../../hooks/usePublicQuotesApi';
 import useQueryDebounce from '../../hooks/useQueryDebounce';
 import SearchInput from '../SearchInput';
 import SortSelector from '../SortSelector';
+import Pagination from '../Pagination';
 import useQueryParams from '../../hooks/useQueryParams';
 
 export const opts = {
@@ -28,19 +29,26 @@ const PublicQuotes = () => {
     handleOrderType
   ] = useQueryParams(query);
 
-  const url = `/api/public-quotes?${queryParams}`;
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const url = `/api/public-quotes?${queryParams}&start=${pageNumber}`;
 
   const {
     loading,
     error,
     refresh,
     data: quotes,
+    quotesPerPage,
+    currentPageNumber,
+    quotesTotal
   } = usePublicQuotesApi(url, opts);
 
   const getTokenAndTryAgain = async () => {
     await getAccessTokenWithPopup(opts);
     refresh();
   };
+
+  const paginate = (number) => setPageNumber(number);
 
   const displayError = (type) => {
     switch (type) {
@@ -76,6 +84,14 @@ const PublicQuotes = () => {
         {loading && <div>Loading...</div>}
         {error && displayError(error.error)}
         <Quotes quotes={quotes} />
+        {quotes && <div className='flex flex-wrap items-center justify-center w-full mt-6'>
+          <Pagination
+            quotesPerPage={quotesPerPage}
+            totalQuotes={quotesTotal}
+            currentPageNumber={currentPageNumber}
+            paginate={paginate}
+          />
+        </div>}
       </ViewLayout>
     </React.Fragment>
   );

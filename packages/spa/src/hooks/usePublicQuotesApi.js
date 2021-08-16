@@ -6,6 +6,9 @@ export const usePublicQuotesApi = (url, options = {}) => {
     error: null,
     loading: true,
     data: null,
+    quotesPerPage: 10,
+    currentPageNumber: 0,
+    quotesTotal: null
   });
   const [refreshIndex, setRefreshIndex] = useState(0);
 
@@ -26,6 +29,9 @@ export const usePublicQuotesApi = (url, options = {}) => {
         setState({
           ...state,
           data: results?.data?.results,
+          quotesPerPage: results?.data?.limit,
+          currentPageNumber: parseInt(results?.data?.start, 10),
+          quotesTotal: results?.data?.total,
           error: null,
           loading: false,
         });
