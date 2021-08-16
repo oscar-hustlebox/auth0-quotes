@@ -55,7 +55,7 @@ export const useUserQuotesApi = (url, options = {}) => {
     return () => {
       source.cancel();
     };
-  }, [refreshIndex]);
+  }, [refreshIndex, url]);
 
   return {
     ...state,

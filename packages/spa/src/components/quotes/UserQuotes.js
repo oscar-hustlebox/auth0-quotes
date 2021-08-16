@@ -6,6 +6,8 @@ import ViewLayout from '../ViewLayout';
 import Quotes from './Quotes';
 
 import { useUserQuotesApi } from '../../hooks/useUserQuotesApi';
+import SearchInput from '../SearchInput';
+import useQueryDebounce from '../../hooks/useQueryDebounce';
 
 export const opts = {
   audience: 'https://quotesapp.com/api',
@@ -13,11 +15,12 @@ export const opts = {
 };
 
 const UserQuotes = () => {
-  const { user, loginWithRedirect, getAccessTokenWithPopup } = useAuth0();
-  const { loading, error, refresh, data: quotes } = useUserQuotesApi(
-    `/api/user-quotes?userId=${user.sub}`,
-    opts
-  );
+  const { loginWithRedirect, getAccessTokenWithPopup } = useAuth0();
+  const [query, debouncedChangeHandler] = useQueryDebounce();
+
+  const url = `/api/user-quotes?userId=${query}`;
+
+  const { loading, error, refresh, data: quotes } = useUserQuotesApi(url, opts);
 
   const getTokenAndTryAgain = async () => {
     await getAccessTokenWithPopup(opts);
@@ -42,6 +45,7 @@ const UserQuotes = () => {
           Create Quote
         </Link>
       </ViewHeader>
+      <SearchInput debouncedChangeHandler={debouncedChangeHandler} />
       {loading && <div>Loading...</div>}
       {error && displayError(error.error)}
       <Quotes quotes={quotes} />
