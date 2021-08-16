@@ -41,7 +41,7 @@ export const usePublicQuotesApi = (url, options = {}) => {
     return () => {
       source.cancel();
     };
-  }, []);
+  }, [url]);
 
   return {
     ...state,
