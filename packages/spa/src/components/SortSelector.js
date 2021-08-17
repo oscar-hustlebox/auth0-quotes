@@ -32,13 +32,13 @@ const orderByOptions = [{
 }];
 
 const SelectOptions = ({ isDisabled, name, label, value, options, handleChange }) => (
-  <div className='flex items-center space-x-2'>
-    <label className={isDisabled ? 'text-gray-300' : null}>{label}</label>
+  <div className='flex items-center space-x-2 w-full mr-0 md:mr-4'>
+    <label className={`${isDisabled ? 'text-gray-300' : null} w-1/3`}>{label}</label>
     <select
       name={name}
       value={value}
       onChange={(e) => handleChange(e.target.value)}
-      className={`px-4 py-2 border rounded-md ${isDisabled ? 'bg-gray-100 text-gray-300' : null}`}
+      className={`px-4 py-2 border rounded-md w-2/3 ${isDisabled ? 'bg-gray-100 text-gray-300' : null}`}
       disabled={isDisabled}
     >
       {(options || []).map((opt) => (
@@ -71,7 +71,10 @@ const SortSelector = ({
   const handleSubmit = (e) => e.preventDefault();
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-row justify-between space-x-2'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col md:flex-row justify-between space-y-2 md:space-y-0'
+    >
       <SelectOptions
         name='filterBy'
         label='Filter By'
