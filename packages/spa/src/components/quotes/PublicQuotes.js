@@ -8,7 +8,7 @@ import { usePublicQuotesApi } from '../../hooks/usePublicQuotesApi';
 import useQueryDebounce from '../../hooks/useQueryDebounce';
 import SearchInput from '../SearchInput';
 import SortSelector from '../SortSelector';
-import useQueryOptions from '../../hooks/useQueryOptions';
+import useQueryParams from '../../hooks/useQueryParams';
 
 export const opts = {
   audience: 'https://quotesapp.com/api',
@@ -18,9 +18,17 @@ export const opts = {
 const PublicQuotes = () => {
   const { loginWithRedirect, getAccessTokenWithPopup } = useAuth0();
   const [query, debouncedChangeHandler] = useQueryDebounce();
-  const [params, handleQueryOptions] = useQueryOptions(query);
+  const [
+    queryParams,
+    filterType,
+    sortType,
+    orderType,
+    handleFilterType,
+    handleSortType,
+    handleOrderType
+  ] = useQueryParams(query);
 
-  const url = `/api/public-quotes?${params}`;
+  const url = `/api/public-quotes?${queryParams}`;
 
   const {
     loading,
@@ -50,7 +58,15 @@ const PublicQuotes = () => {
       <div className='flex items-center justify-center mt-10 mb-6'>
         <div className='flex flex-col w-full px-6 md:p-0 md:w-3/6 h-full font-bold'>
           <div className='mb-6'>
-            <SortSelector handleQueryOptions={handleQueryOptions} />
+            <SortSelector
+              query={query}
+              filterType={filterType}
+              sortType={sortType}
+              orderType={orderType}
+              handleFilterType={handleFilterType}
+              handleSortType={handleSortType}
+              handleOrderType={handleOrderType}
+            />
           </div>
           <SearchInput debouncedChangeHandler={debouncedChangeHandler} />
         </div>

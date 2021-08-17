@@ -31,14 +31,15 @@ const orderByOptions = [{
   label: 'Descending'
 }];
 
-const SelectOptions = ({ name, label, value, options, handleChange }) => (
+const SelectOptions = ({ isDisabled, name, label, value, options, handleChange }) => (
   <div className='flex items-center space-x-2'>
-    <label>{label}</label>
+    <label className={isDisabled && 'text-gray-300'}>{label}</label>
     <select
       name={name}
       value={value}
       onChange={(e) => handleChange(e.target.value)}
-      className='px-4 py-2 border rounded-md'
+      className={`px-4 py-2 border rounded-md ${isDisabled && 'bg-gray-100 text-gray-300'}`}
+      disabled={isDisabled}
       defaultValue={options[0]?.value}
     >
       {(options || []).map((opt) => (
@@ -51,6 +52,7 @@ const SelectOptions = ({ name, label, value, options, handleChange }) => (
 );
 
 SelectOptions.propTypes = {
+  isDisabled: PropTypes.bool,
   name: PropTypes.string,
   label: PropTypes.string,
   options: PropTypes.array,
@@ -58,15 +60,15 @@ SelectOptions.propTypes = {
   handleChange: PropTypes.func
 };
 
-const SortSelector = ({ handleQueryOptions }) => {
-  const [filterBy, setFilterBy] = React.useState('authorName');
-  const [sortBy, setSortBy] = React.useState('authorName');
-  const [orderBy, setOrderBy] = React.useState('asc');
-
-  React.useEffect(() => {
-    handleQueryOptions(filterBy, sortBy, orderBy);
-  }, [filterBy, sortBy, orderBy]);
-
+const SortSelector = ({
+  query,
+  filterType,
+  sortType,
+  orderType,
+  handleFilterType,
+  handleSortType,
+  handleOrderType
+}) => {
   const handleSubmit = (e) => e.preventDefault();
 
   return (
@@ -75,29 +77,38 @@ const SortSelector = ({ handleQueryOptions }) => {
         name='filterBy'
         label='Filter By'
         options={filterByOptions}
-        value={filterBy}
-        handleChange={setFilterBy}
+        value={filterType}
+        isDisabled={!query}
+        handleChange={handleFilterType}
       />
       <SelectOptions
         name='sortBy'
         label='Sort By'
         options={sortByOptions}
-        value={sortBy}
-        handleChange={setSortBy}
+        value={sortType}
+        isDisabled={!query}
+        handleChange={handleSortType}
       />
       <SelectOptions
         name='orderBy'
         label='Order By'
         options={orderByOptions}
-        value={orderBy}
-        handleChange={setOrderBy}
+        value={orderType}
+        isDisabled={!query}
+        handleChange={handleOrderType}
       />
     </form>
   );
 };
 
 SortSelector.propTypes = {
-  handleQueryOptions: PropTypes.func
+  query: PropTypes.string,
+  filterType: PropTypes.string,
+  sortType: PropTypes.string,
+  orderType: PropTypes.string,
+  handleFilterType: PropTypes.func,
+  handleSortType: PropTypes.func,
+  handleOrderType: PropTypes.func,
 };
 
 export default SortSelector;
