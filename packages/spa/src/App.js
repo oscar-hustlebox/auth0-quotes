@@ -13,6 +13,14 @@ import UserQuotes from './components/quotes/UserQuotes';
 
 export const history = createBrowserHistory();
 
+const NotFound = () => (
+  <div className='flex items-center justify-center h-screen'>
+    <div className='w-full md:w-3/6 px-4 md:mx-auto'>
+      <div className='text-center'>Page Not Found</div>
+    </div>
+  </div>
+);
+
 const onRedirectCallback = (appState) => {
   // Use the router's history module to replace the url
   history.replace(appState?.returnTo || window.location.pathname);
@@ -51,6 +59,7 @@ const App = () => {
               />
             )}
             />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </Auth0Provider>

@@ -33,14 +33,13 @@ const orderByOptions = [{
 
 const SelectOptions = ({ isDisabled, name, label, value, options, handleChange }) => (
   <div className='flex items-center space-x-2'>
-    <label className={isDisabled && 'text-gray-300'}>{label}</label>
+    <label className={isDisabled ? 'text-gray-300' : null}>{label}</label>
     <select
       name={name}
       value={value}
       onChange={(e) => handleChange(e.target.value)}
-      className={`px-4 py-2 border rounded-md ${isDisabled && 'bg-gray-100 text-gray-300'}`}
+      className={`px-4 py-2 border rounded-md ${isDisabled ? 'bg-gray-100 text-gray-300' : null}`}
       disabled={isDisabled}
-      defaultValue={options[0]?.value}
     >
       {(options || []).map((opt) => (
         <option key={opt.id} value={opt.value}>

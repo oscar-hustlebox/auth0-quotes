@@ -89,7 +89,7 @@ const EditQuote = ({ quoteId, redirectTo }) => {
 
   return (
     <div className='flex items-center justify-center h-screen'>
-      <div className='container px-4 md:mx-auto'>
+      <div className='w-full md:w-3/6 px-4 md:mx-auto'>
         <form action='POST' onSubmit={handleSubmit}>
           <div className='flex flex-col items-center justify-between w-full mb-4'>
             <label htmlFor='quote' className='block mb-2 text-gray-700 text-xl font-bold'>

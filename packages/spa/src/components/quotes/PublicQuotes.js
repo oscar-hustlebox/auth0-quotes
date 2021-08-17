@@ -3,12 +3,14 @@ import { useAuth0 } from '@auth0/auth0-react';
 import ViewHeader from '../ViewHeader';
 import ViewLayout from '../ViewLayout';
 import Quotes from './Quotes';
+import EmptyQuotes from './EmptyQuotes';
 
-import { usePublicQuotesApi } from '../../hooks/usePublicQuotesApi';
-import useQueryDebounce from '../../hooks/useQueryDebounce';
 import SearchInput from '../SearchInput';
 import SortSelector from '../SortSelector';
 import Pagination from '../Pagination';
+
+import { usePublicQuotesApi } from '../../hooks/usePublicQuotesApi';
+import useQueryDebounce from '../../hooks/useQueryDebounce';
 import useQueryParams from '../../hooks/useQueryParams';
 
 export const opts = {
@@ -30,6 +32,11 @@ const PublicQuotes = () => {
   ] = useQueryParams(query);
 
   const [pageNumber, setPageNumber] = useState(0);
+  const paginate = (number) => setPageNumber(number);
+
+  React.useEffect(() => {
+    paginate(0);
+  }, [queryParams]);
 
   const url = `/api/public-quotes?${queryParams}&start=${pageNumber}`;
 
@@ -48,8 +55,6 @@ const PublicQuotes = () => {
     refresh();
   };
 
-  const paginate = (number) => setPageNumber(number);
-
   const displayError = (type) => {
     switch (type) {
       case 'login_required':
@@ -57,7 +62,7 @@ const PublicQuotes = () => {
       case 'consent_required':
         return <button onClick={getTokenAndTryAgain}>Consent to reading users</button>;
       default:
-        return <div>Oops {error.message}</div>;
+        return <div className='flex items-center justify-center mx-auto h-screen'>Oops {error.message}</div>;
     }
   };
 
@@ -76,23 +81,30 @@ const PublicQuotes = () => {
               handleOrderType={handleOrderType}
             />
           </div>
-          <SearchInput debouncedChangeHandler={debouncedChangeHandler} />
+          <SearchInput placeholder='Search by Author Name or by Text' debouncedChangeHandler={debouncedChangeHandler} />
         </div>
       </div>
       <ViewLayout>
         <ViewHeader title='Public Quotes' />
-        {loading && <div>Loading...</div>}
+        {loading && <div className='flex items-center justify-center mx-auto h-screen'>Loading...</div>}
         {error && displayError(error.error)}
         <Quotes quotes={quotes} />
-        {quotes && <div className='flex flex-wrap items-center justify-center w-full mt-6'>
-          <Pagination
-            quotesPerPage={quotesPerPage}
-            totalQuotes={quotesTotal}
-            currentPageNumber={currentPageNumber}
-            paginate={paginate}
-          />
-        </div>}
+        {!loading && (Array.isArray(quotes) && !quotes?.length) && (
+          <EmptyQuotes />
+        )}
       </ViewLayout>
+      {quotes && (
+        <div className='flex items-center justify-center mt-10 mb-6'>
+          <div className='flex flex-col w-full px-6 md:p-0 md:w-3/6 h-full font-bold'>
+            <Pagination
+              quotesPerPage={quotesPerPage}
+              totalQuotes={quotesTotal}
+              currentPageNumber={currentPageNumber}
+              paginate={paginate}
+            />
+          </div>
+        </div>
+      )}
     </React.Fragment>
   );
 };

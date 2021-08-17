@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const Pagination = ({ quotesPerPage, totalQuotes, currentPageNumber, paginate }) => {
+  /* eslint-disable no-unused-vars */
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
+  /* eslint-disable no-unused-vars */
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
@@ -84,7 +86,7 @@ const Pagination = ({ quotesPerPage, totalQuotes, currentPageNumber, paginate })
   }
 
   return (
-    <>
+    <div className='flex flex-wrap items-center justify-center w-full'>
       <button
         type='button'
         className='px-2 rounded bg-white hover:bg-black hover:text-white border'
@@ -104,7 +106,7 @@ const Pagination = ({ quotesPerPage, totalQuotes, currentPageNumber, paginate })
       >
         Next
       </button>
-    </>
+    </div>
   );
 };
 

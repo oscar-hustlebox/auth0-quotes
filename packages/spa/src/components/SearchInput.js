@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchInput = ({ debouncedChangeHandler }) => {
+const SearchInput = ({ placeholder, debouncedChangeHandler }) => {
   const handleSubmit = (e) => e.preventDefault();
   return (
     <form onSubmit={handleSubmit} className='flex w-full'>
@@ -13,7 +13,7 @@ const SearchInput = ({ debouncedChangeHandler }) => {
         '
         type='text'
         name='q'
-        placeholder='Search'
+        placeholder={placeholder ?? 'Search'}
         autoFocus
         onChange={(e) => debouncedChangeHandler(e.target.value)}
       />
@@ -22,6 +22,7 @@ const SearchInput = ({ debouncedChangeHandler }) => {
 };
 
 SearchInput.propTypes = {
+  placeholder: PropTypes.string,
   debouncedChangeHandler: PropTypes.func
 };
 
